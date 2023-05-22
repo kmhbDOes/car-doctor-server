@@ -71,13 +71,18 @@ async function run() {
 
         //services route
         app.get('/services', async (req, res) => {
-            const cursor = serviceCollection.find();
+            const query = {}
+            const options = {
+                //sort matched documents in descending order
+                sort: { "price": 1 }
+            }
+            const cursor = serviceCollection.find(query, options);
             const result = await cursor.toArray();
             res.send(result);
         })
 
         app.get('/services/:id', async (req, res) => {
-            const id = req.params.id;
+            const id = req.params.id; ``
             const query = { _id: new ObjectId(id) }
 
             const options = {
